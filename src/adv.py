@@ -1,4 +1,7 @@
+import code
+
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,6 +41,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+p = Player("Zelda", "outside")
+print(p)
 
 # Write a loop that:
 #
@@ -49,3 +54,22 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+n = f'Moved North to '
+s = f'Moved South to '
+e = f'Moved East to '
+w = f'Moved West to '
+q = f'Thanks for playing!'
+
+def adventure_repl():
+    room_description = room[p.current_room].description
+    banner = f'The current room is {p.current_room} - {room_description}\nExplore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q'
+    code.interact(banner=banner, local=globals(), exitmsg='Thanks for playing!')
+def move_rooms():
+    # Can input n, s, e, w, or q ... otherwise throw an error
+    # How are we reading this input? What does it map to?
+    # How to quit the game?
+    # 
+    return None
+
+adventure_repl()
+# move_rooms()
