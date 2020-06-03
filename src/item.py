@@ -1,3 +1,6 @@
+# Add on_take method that prints a string (You have picked up [NAME]) and prints confirmation
+# Add on_drop method that removes item and prints confirmation 
+
 class Item:
   def __init__(self, name, description):
     super().__init__()

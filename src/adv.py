@@ -41,20 +41,15 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
+# Add in items to rooms and print that to the REPL
+# Add ability to add two words to input (check for len) and parse the words > get / take item or drop item
+# If item doesn't exist return an error
+# If verb doesn't match an action, return an error (tuple, like directions > get, take, or drop)
+# Get / take > look in current room to see if item is available, if yes, add to player's item list and remove from Room list ... if not, print error
+# Add i and inventory commands to show list of player's items
+
 p = Player("Zelda", room['outside'])
 directions = ('n', 's', 'e', 'w')
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
 print(f'Explore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\nThe current room is {p.current_room.name} - {p.current_room.description}')
 
