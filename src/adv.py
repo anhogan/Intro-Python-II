@@ -2,6 +2,7 @@ import code
 
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -42,7 +43,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 p = Player("Zelda", "outside")
-print(p)
+room_description = room[p.current_room].description
 
 # Write a loop that:
 #
@@ -55,20 +56,25 @@ print(p)
 #
 # If the user enters "q", quit the game.
 
-# Need validation for if direction is available, if not throw an error
-# If invalid input, throw an error
-# Update p.current_room each time
-# Return a string with current room name and description
-n = f'The current room is {room[p.current_room].n_to.name} - {room[p.current_room].n_to.description}'
-s = f'Moved South to {room[p.current_room].s_to.name} - {room[p.current_room].s_to.description}'
-e = f'Moved East to {room[p.current_room].e_to.name} - {room[p.current_room].e_to.description}'
-w = f'Moved West to {room[p.current_room].w_to.name} - {room[p.current_room].w_to.description}'
-q = f'Thanks for playing!'
+print(f'Explore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\nThe current room is {p.current_room} - {room_description}')
 
-def adventure_repl():
-    room_description = room[p.current_room].description
-    banner = f'The current room is {p.current_room} - {room_description}\nExplore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q'
-    code.interact(banner=banner, local=globals(), exitmsg='Thanks for playing!')
+while True:
+    selection = input('Where to? ')
 
-adventure_repl()
-# move_rooms()
+    if selection == 'q':
+        print('Thanks for playing!')
+        break
+
+    try:
+        if selection == 'n' and room[p.current_room].n_to is not None:
+            print(f'The current room is {room[p.current_room].n_to.name} - {room[p.current_room].n_to.description}')
+        elif selection == 's' and room[p.current_room].s_to is not None:
+            print(f'Moved South to {room[p.current_room].s_to.name} - {room[p.current_room].s_to.description}')
+        elif selection == 'e' and room[p.current_room].e_to is not None:
+            print(f'Moved East to {room[p.current_room].e_to.name} - {room[p.current_room].e_to.description}')
+        elif selection == 'w' and room[p.current_room].w_to is not None:
+            print(f'Moved West to {room[p.current_room].w_to.name} - {room[p.current_room].w_to.description}')
+        else:
+            print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
+    except KeyError:
+        print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
