@@ -42,8 +42,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-p = Player("Zelda", "outside")
-room_description = room[p.current_room].description
+p = Player("Zelda", room['outside'])
+directions = ('n', 's', 'e', 'w')
 
 # Write a loop that:
 #
@@ -56,25 +56,23 @@ room_description = room[p.current_room].description
 #
 # If the user enters "q", quit the game.
 
-print(f'Explore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\nThe current room is {p.current_room} - {room_description}')
+print(f'Explore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\nThe current room is {p.current_room.name} - {p.current_room.description}')
 
 while True:
-    selection = input('Where to? ')
+    selection = input('Where to? ').lower()
 
     if selection == 'q':
-        print('Thanks for playing!')
+        print('Thanks for playing!') 
         break
 
     try:
-        if selection == 'n' and room[p.current_room].n_to is not None:
-            print(f'The current room is {room[p.current_room].n_to.name} - {room[p.current_room].n_to.description}')
-        elif selection == 's' and room[p.current_room].s_to is not None:
-            print(f'Moved South to {room[p.current_room].s_to.name} - {room[p.current_room].s_to.description}')
-        elif selection == 'e' and room[p.current_room].e_to is not None:
-            print(f'Moved East to {room[p.current_room].e_to.name} - {room[p.current_room].e_to.description}')
-        elif selection == 'w' and room[p.current_room].w_to is not None:
-            print(f'Moved West to {room[p.current_room].w_to.name} - {room[p.current_room].w_to.description}')
+        if selection in directions:
+            try:
+                p.move_room(selection)
+                print(f'The current room is {p.current_room.name} - {p.current_room.description}')
+            except AttributeError:
+                print('No room there, try another direction')
         else:
             print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
     except KeyError:
-        print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
+        print('Unknown territory! Please enter a valid direction or quit the game')-4

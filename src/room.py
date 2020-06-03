@@ -1,15 +1,14 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
 
+from item import Item
+
 class Room:
-  def __init__(self, name, description, n_to=None, s_to=None, e_to=None, w_to=None):
+  def __init__(self, name, description, items=[]):
     super().__init__()
     self.name = name
     self.description = description
-    self.n_to = n_to
-    self.s_to = s_to
-    self.e_to = e_to
-    self.w_to = w_to
+    self.items = [Item(i[0], i[1]) for i in items]
 
   def __repr__(self):
-    return f'Name: {self.name}, Description: {self.description}, North To: {self.n_to}, South To: {self.s_to}, East To: {self.e_to}, West To: {self.w_to}'
+    return f'{self.name} - {self.description}'
