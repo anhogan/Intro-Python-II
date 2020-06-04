@@ -52,7 +52,7 @@ p = Player("Amanda", room['outside'])
 
 print(f'Welcome {p.name}!\nExplore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\n')
 print(f'You are in the {p.current_room.name} - {p.current_room.description}\n')
-print(f'{p.current_room.print_items()}')
+p.current_room.print_items()
 
 while True:
     selection = input('Where to? ').lower().split(' ')
@@ -81,7 +81,7 @@ while True:
             try:
                 p.move_room(selection[0])
                 print(f'You are in the {p.current_room.name} - {p.current_room.description}\n')
-                print(f'{p.current_room.print_items()}')
+                p.current_room.print_items()
             except AttributeError:
                 print('No room there, try another direction')
         else:

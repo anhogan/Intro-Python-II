@@ -11,9 +11,6 @@ class Player:
   def __str__(self):
     return f'Name: {self.name}, Current Room: {self.current_room}'
 
-  def __repr__(self):
-    return f'Name: {self.name}, Current Room: {self.current_room}'
-
   def move_room(self, direction):
     if getattr(self.current_room, f'{direction}_to'):
         self.current_room = getattr(self.current_room, f'{direction}_to')

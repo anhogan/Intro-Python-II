@@ -10,9 +10,6 @@ class Room:
   def __str__(self):
     return f'{self.name} - {self.description}'
 
-  def __repr__(self):
-    return f'{self.name} - {self.description}'
-
   def print_items(self):
     if len(self.items) > 0:
       print('It has the following items:\n')
@@ -27,4 +24,4 @@ class Room:
         print('Valid item')
       else:   
         print('Item does not exist in this room.')
-        print(f'{self.print_items()}')
+        self.print_items()
