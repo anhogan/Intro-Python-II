@@ -69,7 +69,6 @@ while True:
                 item.on_take(item)
             elif selection[0] == 'drop':
                 item = p.search_items(selection[1])
-                print(item)
                 p.current_room.add_item(item)
                 p.drop_item(item)
                 item.on_drop(item)
