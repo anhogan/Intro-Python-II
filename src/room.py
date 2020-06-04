@@ -20,3 +20,11 @@ class Room:
         print(f'{i.name} - {i.description}')
     else:
       print('There are no items in this room')
+
+  def search_items(self, item):
+    for i in self.items:
+      if i.name.lower() == item:
+        print('Valid item')
+      else:   
+        print('Item does not exist in this room.')
+        print(f'{self.print_items()}')

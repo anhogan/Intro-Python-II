@@ -44,8 +44,6 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# If item doesn't exist return an error
-# If verb doesn't match an action, return an error (list, like directions > get, take, or drop)
 # Get / take > look in current room to see if item is available, if yes, add to player's item list and remove from Room list ... if not, print error
 directions = ['n', 's', 'e', 'w']
 item_actions = ['get', 'take', 'drop']
@@ -63,7 +61,7 @@ while True:
         print("Please enter a one or two word input for the game. To get a list of valid commands, type 'help' or 'h")
     elif len(selection) == 2:
         if selection[0] in item_actions:
-            print('Success')
+            p.current_room.search_items(selection[1])
         else: 
             print("Please enter a valid action for the item. To get a list of valid commands, type 'help' or 'h")
     else:
