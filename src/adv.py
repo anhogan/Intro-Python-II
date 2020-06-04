@@ -8,24 +8,19 @@ from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons",
-                     [("Sword", "A pointy object")]),
+                     "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", 
-                    "Dim light filters in from the south. Dusty passages run north and east.",
-                    [("Egg", "Don't drop it!")]),
+                    "Dim light filters in from the south. Dusty passages run north and east."),
 
     'overlook': Room("Grand Overlook", 
-                    "A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm.",
-                    [("Phone", "Find the password, find the help")]),
+                    "A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm."),
 
     'narrow':   Room("Narrow Passage", 
-                    "The narrow passage bends here from west to north. The smell of gold permeates the air.",
-                    [("Water Bottle", "Hydration is a necessary evil")]),
+                    "The narrow passage bends here from west to north. The smell of gold permeates the air."),
 
     'treasure': Room("Treasure Chamber", 
-                    "You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.",
-                    [("Key", "What could this be for?")]),
+                    "You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south."),
 }
 
 
@@ -40,11 +35,17 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Add room items
+room['outside'].add_item(Item("Sword", "A pointy object"))
+room['foyer'].add_item(Item("Egg", "Don't drop it!"))
+room['overlook'].add_item(Item("Phone", "Find the password, find the help"))
+room['narrow'].add_item(Item("Water", "Hydration is a necessary evil"))
+room['treasure'].add_item(Item("Key", "What could this be for?"))
+
 #
 # Main
 #
 
-# Get / take > look in current room to see if item is available, if yes, add to player's item list and remove from Room list ... if not, print error
 directions = ['n', 's', 'e', 'w']
 item_actions = ['get', 'take', 'drop']
 
@@ -61,7 +62,17 @@ while True:
         print("Please enter a one or two word input for the game. To get a list of valid commands, type 'help' or 'h")
     elif len(selection) == 2:
         if selection[0] in item_actions:
-            p.current_room.search_items(selection[1])
+            if selection[0] == 'get' or selection[0] == 'take':
+                item = p.current_room.search_items(selection[1])
+                p.current_room.drop_item(item)
+                p.add_item(item)
+                item.on_take(item)
+            elif selection[0] == 'drop':
+                item = p.search_items(selection[1])
+                print(item)
+                p.current_room.add_item(item)
+                p.drop_item(item)
+                item.on_drop(item)
         else: 
             print("Please enter a valid action for the item. To get a list of valid commands, type 'help' or 'h")
     else:
